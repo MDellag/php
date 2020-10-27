@@ -13,13 +13,15 @@ try {
 
     $query = $dao->query("SELECT * FROM alumnos"); // esto es una query.. asi de simple
     
-    echo "cantidad de filas" . $query->rowCount() . "";
+    // echo "cantidad de filas" . $query->rowCount() . "";
 
     $alumnos = $query->fetchAll(PDO::FETCH_OBJ); // te devuelve un array con 2 resultados.. si le agregamos ese parametro, trae bien todo
     //Buscar los diferentes tipos de PDO::Fetch
 
     while($fila = $query->fetch(PDO::FETCH_OBJ)){
+        //este while no funca..
         echo json_encode($fila);
+        echo "As";
     }
 
     // echo json_encode($alumnos);
