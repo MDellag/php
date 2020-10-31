@@ -1,18 +1,41 @@
 <?php
 header('Content-Type: application/json');
-// include './usuarios.php';
-/* use Clases\Usuario;
+require __DIR__ . '/vendor/autoload.php'; //este es el encargado de autolodear todo desde el composer.json
 
-$usuario = new Usuario("mail", "pass", "type"); */
-$user = "root";
-$password = "";
+include "./Sql.php";
 
-try {
-    $dao = new PDO('mysql:host=localhost; dbname=clasesql', $user, $password);
-    echo "se Conecto correctamente a la DAO";
 
-    $query = $dao->query("SELECT * FROM alumnos"); // esto es una query.. asi de simple
-    
+use Clases\Usuario;
+use Controllers\UserController;
+
+$contr = new UserController;
+echo $contr->ver = "v1.09";
+
+$usuario = new Usuario("asd", "adwqe", "adm");
+
+
+
+
+
+$sqlCon = new DAO("clasesql");
+
+$getDao = "SELECT * FROM alumnos";
+$insert = "INSERT INTO alumnos (apellido, nombre, dni) VALUES ('go', 'jython', 42334863)";
+$update = "UPDATE alumnos set dni = 42334863 where id = '5' ";
+
+// $sqlCon->queryRunner($getDao);
+
+// echo json_encode($sqlCon->queryRunner($getDao));
+
+
+
+
+
+
+
+
+
+/*  
     // echo "cantidad de filas" . $query->rowCount() . "";
 
     $alumnos = $query->fetchAll(PDO::FETCH_OBJ); // te devuelve un array con 2 resultados.. si le agregamos ese parametro, trae bien todo
@@ -23,10 +46,8 @@ try {
         echo json_encode($fila);
         echo "As";
     }
+ */
 
-    // echo json_encode($alumnos);
 
-} catch (\Throwable $th) {
-    echo "no se pudo conectar al a ddbb";
-}
+
 

@@ -5,7 +5,6 @@ namespace Clases;
 class Usuario
 {
 
-
     private $_email;
     private $_typeUser;
     private $_password;
