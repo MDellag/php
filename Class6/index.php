@@ -27,7 +27,7 @@ echo json_encode($sqlCon->queryRunner($getDao));
 
 
 
-/*  
+/*  Codigo de Referencia
     // echo "cantidad de filas" . $query->rowCount() . "";
 
     $alumnos = $query->fetchAll(PDO::FETCH_OBJ); // te devuelve un array con 2 resultados.. si le agregamos ese parametro, trae bien todo
