@@ -25,7 +25,7 @@ class DAO{
             $this->_dao = new PDO($this->_connectionString, $this->_user, $this->_password);
             return true;
         } catch (\Throwable $th) {
-            echo 'Database could not connect';
+            echo 'Could not connect Database';
             return false;
         }
     }
