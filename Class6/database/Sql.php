@@ -1,5 +1,7 @@
 <?php
 
+namespace DB;
+use \PDO;
 
 class DAO{
 
@@ -35,22 +37,20 @@ class DAO{
             switch($method){
                 case 'GET': 
                     try {
-                    $data = $this->_dao->query($queryString);
-                    return $data->fetchAll(PDO::FETCH_OBJ);
-                } catch (\Throwable $th) {
-                    echo 'error at Get';
-                } break;
+                        $data = $this->_dao->query($queryString);
+                        return $data->fetchAll(PDO::FETCH_OBJ);
+                    } catch (\Throwable $th) {
+                        echo 'error at Get';
+                    } break;
 
                 case 'POST':
                     try {
                         $this->_dao->query($queryString);
                     } catch (\Throwable $th) {
                        echo "error at Post";
-                    }
+                    } break;
             }
-        } 
-       
-        
+        }  
 
     }
 

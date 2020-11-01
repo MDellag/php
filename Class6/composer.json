@@ -14,7 +14,7 @@
     "psr-4": {
       "Firebase\\JWT\\": "src",
       "Clases\\": "clases",
-      "Controllers\\": "controladores"
+      "DB\\": "database"
     }
   }
 }

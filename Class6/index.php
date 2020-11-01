@@ -2,19 +2,11 @@
 header('Content-Type: application/json');
 require __DIR__ . '/vendor/autoload.php'; //este es el encargado de autolodear todo desde el composer.json
 
-include "./Sql.php";
-
-
+include "./database/Sql.php";
 use Clases\Usuario;
-use Controllers\UserController;
-
-$contr = new UserController;
-echo $contr->ver = "v1.09";
+use DB\DAO;
 
 $usuario = new Usuario("asd", "adwqe", "adm");
-
-
-
 
 
 $sqlCon = new DAO("clasesql");
@@ -25,7 +17,7 @@ $update = "UPDATE alumnos set dni = 42334863 where id = '5' ";
 
 // $sqlCon->queryRunner($getDao);
 
-// echo json_encode($sqlCon->queryRunner($getDao));
+echo json_encode($sqlCon->queryRunner($getDao));
 
 
 
