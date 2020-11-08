@@ -2,7 +2,7 @@
 header('Content-Type: application/json');
 require __DIR__ . '/vendor/autoload.php'; //este es el encargado de autolodear todo desde el composer.json
 
-include "./database/Sql.php";
+// include "./database/Sql.php";
 use Clases\Usuario;
 use DB\DAO;
 
@@ -12,10 +12,10 @@ $usuario = new Usuario("asd", "adwqe", "adm");
 $sqlCon = new DAO("clasesql");
 
 $getDao = "SELECT * FROM alumnos";
-$insert = "INSERT INTO alumnos (apellido, nombre, dni) VALUES ('go', 'jython', 42334863)";
+$insert = "INSERT INTO alumnos (apellido, nombre, dni) VALUES ('yty', 'pol', 2425)";
 $update = "UPDATE alumnos set dni = 42334863 where id = '5' ";
 
-// $sqlCon->queryRunner($getDao);
+// $sqlCon->queryRunner($insert);
 
 echo json_encode($sqlCon->queryRunner($getDao));
 
