@@ -5,10 +5,8 @@ use Psr\Http\Message\ResponseInterface as Response;
 use Psr\Http\Message\ServerRequestInterface as Request;
 use Slim\Factory\AppFactory;
 use Slim\Routing\RouteCollectorProxy;
-use App\Middlewares\JsonMiddleware;
-use App\Middlewares\AuthMiddleware;
 use \App\Controllers\EmpleadoController;
-use Config\Database;
+use \Entities\Pedido;
 
 
 require __DIR__ . '/vendor/autoload.php';
@@ -16,9 +14,9 @@ require __DIR__ . '/vendor/autoload.php';
 header('Content-Type: application/json');
 date_default_timezone_set("America/Argentina/Buenos_Aires");
 
-$conn = new Database;
+
 $app = AppFactory::create();
-$app->setBasePath('/php/LaComanda');
+$app->setBasePath('/php/LaComandaT');
 
 $app->addErrorMiddleware(true, false, false);
 $app->addBodyParsingMiddleware(); //Este se encarga de parsear los Json del Body Request. Si no, no podriamos enviar Json.
@@ -56,10 +54,10 @@ $app->group('/empleados', function (RouteCollectorProxy $group) {
     $group->put('/{id}', EmpleadoController::class . ":updateOne");
 
     $group->delete('/{id}', EmpleadoController::class . ":deleteOne");
-})->add(new AuthMiddleware)->add(new JsonMiddleware);
+});
 
 
-/* $app->group('/pedidos', function (RouteCollectorProxy $group) {
+$app->group('/pedidos', function (RouteCollectorProxy $group) {
 
     $group->get('/', function (Request $req, Response $res, $args) {
 
@@ -77,6 +75,6 @@ $app->group('/empleados', function (RouteCollectorProxy $group) {
         $res->getBody()->write(json_encode($pedido->_pedidoInfo));
         return $res;
     });
-}); */
+});
 
 $app->run();
