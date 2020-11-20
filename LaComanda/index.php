@@ -8,6 +8,8 @@ use Slim\Routing\RouteCollectorProxy;
 use App\Middlewares\JsonMiddleware;
 use App\Middlewares\AuthMiddleware;
 use \App\Controllers\EmpleadoController;
+use \App\Controllers\PedidoController;
+use \App\Controllers\UserController;
 use Config\Database;
 
 
@@ -24,59 +26,44 @@ $app->addErrorMiddleware(true, false, false);
 $app->addBodyParsingMiddleware(); //Este se encarga de parsear los Json del Body Request. Si no, no podriamos enviar Json.
 
 
-$app->get('/', function (Request $request, Response $response, $args) {
-
-    $json = new stdClass();
-    $json->status = 200;
-    $json->method = 'GET';
-    $json = json_encode($json);
-    $response->getBody()->write($json);
-    return $response;
-});
-
 
 $app->group('/users', function (RouteCollectorProxy $group) {
-    $group->get('/{id}[/]', function (Request $req, Response $res, $args) {
+    $group->post('/register[/]', UserController::class . ":register");
+    
+    $group->post('/login[/]', UserController::class . ":login");
 
-        $bod = json_encode($args);
-        $res->getBody()->write($bod);
-        return $res;
-    });
+    $group->get('/verify/:id[/]', UserController::class . ":verifyUser");
 
-});
+})->add(new JsonMiddleware);;
 
 
 $app->group('/empleados', function (RouteCollectorProxy $group) {
-    $group->get('[/]', EmpleadoController::class . ":getAll");
+    $group->get('[/]', EmpleadoController::class . ":getActiveEmployees");
     
-    $group->post('[/]', EmpleadoController::class . ":addOne");
+    $group->get('/all[/]', EmpleadoController::class . ":getAll");
+
+    $group->get('/{dni}', EmpleadoController::class . ":getOneEmployee");
     
-    $group->get('/{id}', EmpleadoController::class . ":getOne");
+    $group->post('[/]', EmpleadoController::class . ":addEmployee");
 
-    $group->put('/{id}', EmpleadoController::class . ":updateOne");
+    $group->put('/{dni}', EmpleadoController::class . ":updateEmployee");
 
-    $group->delete('/{id}', EmpleadoController::class . ":deleteOne");
-})->add(new AuthMiddleware)->add(new JsonMiddleware);
+    $group->delete('/{dni}', EmpleadoController::class . ":dropEmployee");
+})->add(new AuthMiddleware(2))->add(new JsonMiddleware);
 
 
-/* $app->group('/pedidos', function (RouteCollectorProxy $group) {
+$app->group('/pedidos', function (RouteCollectorProxy $group) {
+    $group->get('[/]', PedidoController::class . ":getActiveEmployees");
+    
+    $group->get('/all[/]', PedidoController::class . ":getAllPedidos");
 
-    $group->get('/', function (Request $req, Response $res, $args) {
+    $group->get('/{code}', PedidoController::class . ":getPedidoByCode");
+    
+    $group->post('[/]', PedidoController::class . ":addPedido");
 
-        $response = Pedido::obtenerPedidos();
-        $res->getBody()->write(json_encode($response));
-        return $res;
-    });
+    $group->put('/{dni}', PedidoController::class . ":updateEmployee");
 
-    $group->post('/', function (Request $req, Response $res, $args) {
-
-        $bod = $req->getParsedBody();
-        $randID = Empleado::GetIdEmpleadoRandom();
-        $pedido = new Pedido($bod['orden'], $randID ,$bod['id_mesa'], Pedido::GenerateCode(), );
-        // $pedido->ordenarPedido();
-        $res->getBody()->write(json_encode($pedido->_pedidoInfo));
-        return $res;
-    });
-}); */
+    $group->delete('/{dni}', PedidoController::class . ":dropEmployee");
+})->add(new AuthMiddleware(2))->add(new JsonMiddleware);
 
 $app->run();

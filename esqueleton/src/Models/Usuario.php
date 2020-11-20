@@ -6,13 +6,13 @@ use Illuminate\Database\Eloquent\Model;
 
 class Usuario extends Model {
 
-    // protected $table = 'jugadores';
-    // protected $primaryKey = 'flight_id';
+    protected $table = 'usuarios';
+    protected $primaryKey = 'mail';
     // public $incrementing = false;
-    // protected $keyType = 'string';
-    // public $timestamps = false;
+    protected $keyType = 'string';
+    public $timestamps = false;
 
-    const CREATED_AT = 'createDate';
+    /* const CREATED_AT = 'createDate';
     const UPDATED_AT = 'updateDate';
-    const LAST_UPDATE = 'lastUpdate';
+    const LAST_UPDATE = 'lastUpdate'; */
 }

@@ -14,7 +14,7 @@ class Database {
         $capsule->addConnection([
             'driver' => 'mysql',
             'host' => 'localhost',
-            'database' => 'slim-database',
+            'database' => 'parcialLaboIII',
             'username' => 'root',
             'password' => '',
             'charset' => 'utf8',
